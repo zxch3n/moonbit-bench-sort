@@ -20,6 +20,11 @@ pub fn gen_sorted(n : Int) -> Array[Double] {
   a
 }
 
+pub fn gen_same(n : Int) -> Array[Double] {
+  let a = Array::make(n, 0.0)
+  a
+}
+
 pub fn gen_reversed(n : Int) -> Array[Double] {
   let a = Array::make(n, 0.0)
   for i = 0; i < n; i = i + 1 {

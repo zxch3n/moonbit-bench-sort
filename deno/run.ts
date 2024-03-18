@@ -28,23 +28,31 @@ const sort = wasm.instance.exports["username/hello/main::sort"] as (arr: number[
 const gen_random = wasm.instance.exports["username/hello/main::gen_random"] as (n: number) => number[];
 const gen_sorted = wasm.instance.exports["username/hello/main::gen_sorted"] as (n: number) => number[];
 const gen_reversed = wasm.instance.exports["username/hello/main::gen_reversed"] as (n: number) => number[];
+const gen_same = wasm.instance.exports["username/hello/main::gen_same"] as (n: number) => number[];
 
 Deno.bench("sort", (t) => {
-  const num = gen_random(10_000);
+  const num = gen_random(100_000);
   t.start();
   sort(num);
   t.end();
 })
 
 Deno.bench("sort sorted", (t) => {
-  const num = gen_sorted(10_000);
+  const num = gen_sorted(100_000);
   t.start();
   sort(num);
   t.end();
 })
 
 Deno.bench("sort reversed", (t) => {
-  const num = gen_reversed(10_000);
+  const num = gen_reversed(100_000);
+  t.start();
+  sort(num);
+  t.end();
+})
+
+Deno.bench("sort same", (t) => {
+  const num = gen_same(100_000);
   t.start();
   sort(num);
   t.end();
