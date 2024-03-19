@@ -26,33 +26,42 @@ const wasm = await WebAssembly.instantiate(buf, {
 
 const sort = wasm.instance.exports["username/hello/main::sort"] as (arr: number[]) => void;
 const gen_random = wasm.instance.exports["username/hello/main::gen_random"] as (n: number) => number[];
+const gen_random_vec = wasm.instance.exports["username/hello/main::gen_random_vec"] as (n: number) => number[];
+const sort_vec = wasm.instance.exports["username/hello/main::sort_vec"] as (arr: number[]) => void;
 const gen_sorted = wasm.instance.exports["username/hello/main::gen_sorted"] as (n: number) => number[];
 const gen_reversed = wasm.instance.exports["username/hello/main::gen_reversed"] as (n: number) => number[];
 const gen_same = wasm.instance.exports["username/hello/main::gen_same"] as (n: number) => number[];
 
+Deno.bench("sort vec", (t) => {
+  const num = gen_random_vec(10_000);
+  t.start();
+  sort_vec(num);
+  t.end();
+})
+
 Deno.bench("sort", (t) => {
-  const num = gen_random(100_000);
+  const num = gen_random(10_000);
   t.start();
   sort(num);
   t.end();
 })
 
 Deno.bench("sort sorted", (t) => {
-  const num = gen_sorted(100_000);
+  const num = gen_sorted(1_000_000);
   t.start();
   sort(num);
   t.end();
 })
 
 Deno.bench("sort reversed", (t) => {
-  const num = gen_reversed(100_000);
+  const num = gen_reversed(1_000_000);
   t.start();
   sort(num);
   t.end();
 })
 
 Deno.bench("sort same", (t) => {
-  const num = gen_same(100_000);
+  const num = gen_same(1_000_000);
   t.start();
   sort(num);
   t.end();
